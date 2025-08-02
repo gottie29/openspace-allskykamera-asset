@@ -1,0 +1,7 @@
+# Temporäre und systemeigene Dateien
+*.log
+*.tmp
+*.bak
+
+# Konfigurationsdaten (werden generiert)
+data/assets/allsky_config.json
