@@ -1,0 +1,112 @@
+-- openspace.asset.add("D:/OpernSpaceProject/OpenSpaceAssets/openspace-allskykamera-asset/data/assets/allsky_all.asset")
+-- openspace.asset.remove("D:/OpernSpaceProject/OpenSpaceAssets/openspace-allskykamera-asset/data/assets/allsky_all.asset")
+
+local earth = asset.require("scene/solarsystem/planets/earth/earth")
+
+local ASK001 = {
+  Identifier = "ASK001Label",
+  Parent = "Earth",
+  Transform = {
+    Translation = {
+      Type = "GlobeTranslation",
+      Globe = "Earth",
+      Latitude = 52.686237,
+      Longitude = 12.447004,
+      Altitude = 150
+    }
+  },
+  Renderable = {
+    Type = "RenderableLabel",
+    Text = "ASK001: Lochow",
+    FontSize = 20.0,
+    Size = 2.0,
+    MinMaxSize = { 2.0, 50.0 },
+    OrientationOption = "Camera View Direction",
+    BlendMode = "Normal",
+    EnableFading = false
+  },
+  GUI = {
+    Name = "ASK001: Lochow",
+    Path = "/AllSkyKameras"
+  }
+}
+
+local ASK002 = {
+  Identifier = "ASK002Label",
+  Parent = "Earth",
+  Transform = {
+    Translation = {
+      Type = "GlobeTranslation",
+      Globe = "Earth",
+      Latitude = 52.239988,
+      Longitude = 13.432869,
+      Altitude = 150
+    }
+  },
+  Renderable = {
+    Type = "RenderableLabel",
+    Text = "ASK002: Dabendorf",
+    FontSize = 50.0,
+    Size = 8.0,
+    MinMaxSize = { 2.0, 50.0 },
+    OrientationOption = "Camera View Direction",
+    BlendMode = "Normal",
+    EnableFading = false
+  },
+  GUI = {
+    Name = "ASK002: Dabendorf",
+    Path = "/AllSkyKameras"
+  }
+}
+
+local ASK005 = {
+  Identifier = "ASK005Label",
+  Parent = "Earth",
+  Transform = {
+    Translation = {
+      Type = "GlobeTranslation",
+      Globe = "Earth",
+      Latitude = 52.486834,
+      Longitude = 13.475197,
+      Altitude = 150
+    }
+  },
+  Renderable = {
+    Type = "RenderableLabel",
+    Text = "ASK005: Archenhold",
+    FontSize = 20.0,
+    Size = 2.0,
+    MinMaxSize = { 2.0, 40.0 },
+    OrientationOption = "Camera View Direction",
+    BlendMode = "Normal",
+    EnableFading = false
+  },
+  GUI = {
+    Name = "ASK005: Archenhold",
+    Path = "/AllSkyKameras"
+  }
+}
+
+asset.onInitialize(function()
+  openspace.addSceneGraphNode(ASK001)
+  openspace.addSceneGraphNode(ASK002)
+  openspace.addSceneGraphNode(ASK005)
+end)
+
+asset.onDeinitialize(function()
+  openspace.removeSceneGraphNode(ASK001)
+  openspace.removeSceneGraphNode(ASK002)
+  openspace.removeSceneGraphNode(ASK005)
+end)
+
+asset.export(ASK001)
+asset.export(ASK002)
+asset.export(ASK005)
+
+asset.meta = {
+  Name = "AllSky Kamera Labels",
+  Description = "Labels der AllSkyKamera Standorte",
+  Author = "Stefan Gotthold",
+  URL = "https://allskykamera.space",
+  License = "MIT"
+}
