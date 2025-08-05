@@ -40,11 +40,23 @@ var assetButtons = {
 	buttons: {
 		'Add Asset': () => {
 			openspace.fadeOut('Scene.EarthAtmosphere.Renderable')
-			openspace.asset.add('D:/OpernSpaceProject/OpenSpaceAssets/openspace-allskykamera-asset/data/assets/allsky_all.asset')
+			openspace.asset.add('./openspace-allskykamera-asset/data/assets/allsky_all.asset')
+			openspace.navigation.setFocus('Earth',true,true)
+			openspace.navigation.flyTo('Earth')
 		},
-		'Remove Asset': () => {openspace.asset.remove('D:/OpernSpaceProject/OpenSpaceAssets/openspace-allskykamera-asset/data/assets/allsky_all.asset')},
-		'Add Image Asset': () => {openspace.asset.add('D:/OpernSpaceProject/OpenSpaceAssets/openspace-allskykamera-asset/data/assets/test_imageOnline.asset')},
-		'Remove Image Asset': () => {openspace.asset.remove('D:/OpernSpaceProject/OpenSpaceAssets/openspace-allskykamera-asset/data/assets/test_imageOnline.asset')},
+		'Remove Asset': () => {
+			openspace.asset.remove('./openspace-allskykamera-asset/data/assets/allsky_all.asset')
+			openspace.navigation.setFocus('Earth',true,true)
+			openspace.navigation.flyTo('Earth')
+		},
+		'Add Image Asset': () => {
+			openspace.asset.add('./openspace-allskykamera-asset/data/assets/test_imageOnline.asset')
+		},
+		'Remove Image Asset': () => {
+			openspace.asset.remove('./openspace-allskykamera-asset/data/assets/test_imageOnline.asset')
+			openspace.navigation.setFocus('Earth',true,true)
+			openspace.navigation.flyTo('Earth')
+		},
 	},
 };
 
