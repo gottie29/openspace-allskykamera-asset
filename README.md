@@ -2,6 +2,11 @@
 Asset für Open Space Project um mein AllSkyKamera-Netzwerk in Open Space Project darzustellen.
 Die Daten findet man ebenso unter https://allskykamera.space/index.php
 
+# Installation
+
+Kopiere den gesamten Ordner openspace-allskykamera-asset unter Deine OpenSpaceProject-Installation unter /data/assets
+Als Beispiel: D:\OpernSpaceProject\OpenSpace-0.21.2\data\assets\openspace-allskykamera-asset
+
 # Anwendung
 
 - Starte OpenSpaceProject (Download: https://www.openspaceproject.com/)
