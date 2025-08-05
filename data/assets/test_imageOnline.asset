@@ -1,0 +1,93 @@
+-- Basic
+-- Create a screenspace image plane that shows the content of an image from a web URL.
+
+-- openspace.asset.add("D:/OpernSpaceProject/OpenSpaceAssets/openspace-allskykamera-asset/data/assets/test_imageOnline.asset")
+-- openspace.asset.remove("D:/OpernSpaceProject/OpenSpaceAssets/openspace-allskykamera-asset/data/assets/test_imageOnline.asset")
+
+
+local ASK005_Image = {
+  Type = "ScreenSpaceImageOnline",
+  Identifier = "ScreenSpaceImageOnline_ASK005",
+  URL = "https://allskykamera.space/imageProxy.php?cam=ASK005&t=1754317086",
+  Name = "ASK005 Image",
+  FaceCamera = true,
+  Scale = 0.8,
+  Enabled = false
+}
+
+local ASK001_Image = {
+  Type = "ScreenSpaceImageOnline",
+  Identifier = "ScreenSpaceImageOnline_ASK001",
+  URL = "https://allskykamera.space/imageProxy.php?cam=ASK001&t=1754317086",
+  Name = "ASK001 Image",
+  FaceCamera = true,
+  Scale = 0.8,
+  Enabled = false
+}
+
+local ASK002_Image = {
+  Type = "ScreenSpaceImageOnline",
+  Identifier = "ScreenSpaceImageOnline_ASK002",
+  URL = "https://allskykamera.space/imageProxy.php?cam=ASK002&t=1754317086",
+  Name = "ASK002 Image",
+  FaceCamera = true,
+  Scale = 0.8,
+  Enabled = false
+}
+
+local Keogram_Image = {
+  Type = "ScreenSpaceImageOnline",
+  Identifier = "ScreenSpaceImageOnline_Keogram",
+  URL = "",
+  Name = "Keogram Image",
+  FaceCamera = true,
+  Scale = 0.8,
+  Enabled = false
+}
+
+local AllskyVideoASK001 = {
+  Identifier = "AllskyVideoExampleASK001",
+  Type = "ScreenSpaceVideo",
+  Name = "AllskyVideoASK001",
+  Video = asset.resource("ask001.mp4"),
+  Scale = 0.8,
+  Enabled = false
+}
+
+local AllskyVideoASK002 = {
+  Identifier = "AllskyVideoExampleASK002",
+  Type = "ScreenSpaceVideo",
+  Name = "AllskyVideoASK002",
+  Video = asset.resource("ask002.mp4"),
+  Scale = 0.8,
+  Enabled = false
+}
+
+local AllskyVideoASK005 = {
+  Identifier = "AllskyVideoExampleASK005",
+  Type = "ScreenSpaceVideo",
+  Name = "AllskyVideoASK005",
+  Video = asset.resource("ask005.mp4"),
+  Scale = 0.8,
+  Enabled = false
+}
+
+asset.onInitialize(function()
+  openspace.addScreenSpaceRenderable(ASK001_Image)
+  openspace.addScreenSpaceRenderable(ASK002_Image)
+  openspace.addScreenSpaceRenderable(ASK005_Image)
+  openspace.addScreenSpaceRenderable(Keogram_Image)
+  openspace.addScreenSpaceRenderable(AllskyVideoASK001)  
+  openspace.addScreenSpaceRenderable(AllskyVideoASK002)  
+  openspace.addScreenSpaceRenderable(AllskyVideoASK005)  
+end)
+
+asset.onDeinitialize(function()
+  openspace.removeScreenSpaceRenderable(ASK001_Image)
+  openspace.removeScreenSpaceRenderable(ASK002_Image)
+  openspace.removeScreenSpaceRenderable(ASK005_Image)
+  openspace.removeScreenSpaceRenderable(Keogram_Image)  
+  openspace.removeScreenSpaceRenderable(AllskyVideoASK001)  
+  openspace.removeScreenSpaceRenderable(AllskyVideoASK002)  
+  openspace.removeScreenSpaceRenderable(AllskyVideoASK005)  
+end)

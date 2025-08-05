@@ -87,16 +87,94 @@ local ASK005 = {
   }
 }
 
+local NodeASK005 = {
+  Identifier = "RenderableNodeArrow_ASK005",
+  -- Parent to the start node, so that when we focus on the arrow this is where we end up
+  Parent = earth.Earth.Identifier,
+  Renderable = {
+    Type = "RenderableNodeArrow",
+    StartNode = earth.Earth.Identifier,
+    EndNode = ASK005.Identifier,
+    -- How far away from the start node should the arrow start (meters)
+    Offset = 6378150,
+    -- How long should the arrow be (meters)
+    Length = 50,
+    -- How wide should the arrow be (meters)
+    Width = 2.0,
+	ArrowHeadSize = 0.05,
+	ArrowHeadWidthFactor = 2,
+	Color = {0.901961,0.286275,0.501961}
+  },
+  GUI = {
+    Name = "RenderableNodeArrow - Basic",
+    Path = "/AllSkyKameras"
+  }
+}
+
+local NodeASK001 = {
+  Identifier = "RenderableNodeArrow_ASK001",
+  -- Parent to the start node, so that when we focus on the arrow this is where we end up
+  Parent = earth.Earth.Identifier,
+  Renderable = {
+    Type = "RenderableNodeArrow",
+    StartNode = earth.Earth.Identifier,
+    EndNode = ASK001.Identifier,
+    -- How far away from the start node should the arrow start (meters)
+    Offset = 6378150,
+    -- How long should the arrow be (meters)
+    Length = 50,
+    -- How wide should the arrow be (meters)
+    Width = 2.0,
+	ArrowHeadSize = 0.05,
+	ArrowHeadWidthFactor = 2,
+	Color = {0.901961,0.286275,0.501961}
+  },
+  GUI = {
+    Name = "RenderableNodeArrow - Basic",
+    Path = "/AllSkyKameras"
+  }
+}
+
+local NodeASK002 = {
+  Identifier = "RenderableNodeArrow_ASK002",
+  -- Parent to the start node, so that when we focus on the arrow this is where we end up
+  Parent = earth.Earth.Identifier,
+  Renderable = {
+    Type = "RenderableNodeArrow",
+    StartNode = earth.Earth.Identifier,
+    EndNode = ASK002.Identifier,
+    -- How far away from the start node should the arrow start (meters)
+    Offset = 6378150,
+    -- How long should the arrow be (meters)
+    Length = 50,
+    -- How wide should the arrow be (meters)
+    Width = 2.0,
+	ArrowHeadSize = 0.05,
+	ArrowHeadWidthFactor = 2,
+	Color = {0.901961,0.286275,0.501961}
+  },
+  GUI = {
+    Name = "RenderableNodeArrow - Basic",
+    Path = "/AllSkyKameras"
+  }
+}
+
 asset.onInitialize(function()
   openspace.addSceneGraphNode(ASK001)
   openspace.addSceneGraphNode(ASK002)
   openspace.addSceneGraphNode(ASK005)
+  openspace.addSceneGraphNode(NodeASK005)
+  openspace.addSceneGraphNode(NodeASK001)
+  openspace.addSceneGraphNode(NodeASK002)
 end)
 
 asset.onDeinitialize(function()
   openspace.removeSceneGraphNode(ASK001)
   openspace.removeSceneGraphNode(ASK002)
   openspace.removeSceneGraphNode(ASK005)
+  openspace.removeSceneGraphNode(NodeASK005)
+  openspace.removeSceneGraphNode(NodeASK001)
+  openspace.removeSceneGraphNode(NodeASK002)
 end)
 
 asset.export(ASK001)

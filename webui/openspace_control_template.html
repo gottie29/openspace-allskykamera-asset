@@ -1,0 +1,300 @@
+<html>
+  <head>
+    <title>My Control Template</title>
+    <link rel="stylesheet" type="text/css" href="main2.css">
+    <script type="text/javascript" src="openspace-api.js"></script>
+    <script type="text/javascript">
+      //variable for js libarary
+      var openspace = null;
+      //helper function for nicely fading groups of trails
+      var showTrails = (objects) => {
+        objects.map(async (object) => {
+          let isEnabled = false;
+          const returnValue = await openspace.getPropertyValue("Scene." + object + "Trail.Renderable.Enabled");
+          if (returnValue) {
+            isEnabled = returnValue[1];
+          }
+          if (!isEnabled) {
+            openspace.setPropertyValue("Scene." + object + "Trail.Renderable.Opacity", 0)
+            openspace.setPropertyValue("Scene." + object + "Trail.Renderable.Enabled", true)
+          }
+          openspace.setPropertyValue("Scene." + object + "Trail.Renderable.Opacity", 1, 1)
+        })
+      }
+      //helper function to fade out and then disable trails
+      async function hideAllTrails() {
+        const duration = 1;
+        openspace.setPropertyValue("Scene.*Trail.Renderable.Opacity", 0, 1)
+        setTimeout(() => {
+          openspace.setPropertyValue("Scene.*Trail.Renderable.Enabled", false)
+        }, duration * 1000)
+      }
+      //helper function to set the focus target
+      var setFocus = (focus) => {
+        openspace.setPropertyValue('NavigationHandler.OrbitalNavigator.Anchor', focus);
+        openspace.setPropertyValue('NavigationHandler.OrbitalNavigator.RetargetAnchor', null);
+      }
+
+var assetButtons = {
+	title: "Lade das Asset",
+	buttons: {
+		'Add Asset': () => {
+			openspace.fadeOut('Scene.EarthAtmosphere.Renderable')
+			openspace.asset.add('D:/OpernSpaceProject/OpenSpaceAssets/openspace-allskykamera-asset/data/assets/allsky_all.asset')
+		},
+		'Remove Asset': () => {openspace.asset.remove('D:/OpernSpaceProject/OpenSpaceAssets/openspace-allskykamera-asset/data/assets/allsky_all.asset')},
+		'Add Image Asset': () => {openspace.asset.add('D:/OpernSpaceProject/OpenSpaceAssets/openspace-allskykamera-asset/data/assets/test_imageOnline.asset')},
+		'Remove Image Asset': () => {openspace.asset.remove('D:/OpernSpaceProject/OpenSpaceAssets/openspace-allskykamera-asset/data/assets/test_imageOnline.asset')},
+	},
+};
+
+var flyButtons = {
+	title: "FlyTo",
+	buttons: {
+		'Fly to ASK001': () => {
+			openspace.navigation.setFocus('ASK001Label',true,true)
+			openspace.navigation.flyTo('ASK001Label')
+		},
+		'Fly to ASK002': () => {
+			openspace.navigation.setFocus('ASK002Label',true,true)
+			openspace.navigation.flyTo('ASK002Label')
+		},
+		'Fly to ASK005': () => {
+			openspace.navigation.setFocus('ASK005Label',true,true)
+			openspace.navigation.flyTo('ASK005Label')
+		},
+	},
+};
+
+var pictureButtons = {
+	title: "Lade Bilder",
+	buttons: {
+		'ASK001 ON': () => {
+			const timestamp = Date.now();
+			const url = 'https://allskykamera.space/imageProxy.php?cam=ASK001&t=' + timestamp;
+			openspace.setPropertyValueSingle('ScreenSpace.ScreenSpaceImageOnline_ASK001.URL', url);
+			openspace.fadeIn('ScreenSpace.ScreenSpaceImageOnline_ASK001')
+		},
+		'ASK001 OFF': () => {
+			openspace.fadeOut('ScreenSpace.ScreenSpaceImageOnline_ASK001')
+			openspace.setPropertyValue('ScreenSpace.ScreenSpaceImageOnline_ASK001.Enabled', false)
+		},
+		'ASK002 ON': () => {
+			const timestamp = Date.now();
+			const url = 'https://allskykamera.space/imageProxy.php?cam=ASK002&t=' + timestamp;
+			openspace.setPropertyValueSingle('ScreenSpace.ScreenSpaceImageOnline_ASK002.URL', url);
+
+			openspace.fadeIn('ScreenSpace.ScreenSpaceImageOnline_ASK002')
+		},
+		'ASK002 OFF': () => {
+			openspace.fadeOut('ScreenSpace.ScreenSpaceImageOnline_ASK002')
+			openspace.setPropertyValue('ScreenSpace.ScreenSpaceImageOnline_ASK002.Enabled', false)
+		},
+		'ASK005 ON': () => {
+			const timestamp = Date.now();
+			const url = 'https://allskykamera.space/imageProxy.php?cam=ASK005&t=' + timestamp;
+			openspace.setPropertyValueSingle('ScreenSpace.ScreenSpaceImageOnline_ASK005.URL', url);
+			openspace.fadeIn('ScreenSpace.ScreenSpaceImageOnline_ASK005')
+		},
+		'ASK005 OFF': () => {
+			openspace.fadeOut('ScreenSpace.ScreenSpaceImageOnline_ASK005')
+		},
+	},
+};
+
+var keogramButtons = {
+	title: "Lade Keogramme",
+	buttons: {
+		'Keogramm ASK001 ON': () => {
+			const timestamp = Date.now();
+			const url = 'https://allskykamera.space/imageProxy.php?cam=ASK001&type=keogram&file=last.jpg';
+			openspace.setPropertyValueSingle('ScreenSpace.ScreenSpaceImageOnline_Keogram.URL', url);
+			openspace.fadeIn('ScreenSpace.ScreenSpaceImageOnline_Keogram')
+		},
+		'Keogramm ASK002 ON': () => {
+			const timestamp = Date.now();
+			const url = 'https://allskykamera.space/imageProxy.php?cam=ASK002&type=keogram&file=last.jpg';
+			openspace.setPropertyValueSingle('ScreenSpace.ScreenSpaceImageOnline_Keogram.URL', url);
+			openspace.fadeIn('ScreenSpace.ScreenSpaceImageOnline_Keogram')
+		},
+		'Keogramm ASK005 ON': () => {
+			const timestamp = Date.now();
+			const url = 'https://allskykamera.space/imageProxy.php?cam=ASK005&type=keogram&file=last.jpg';
+			openspace.setPropertyValueSingle('ScreenSpace.ScreenSpaceImageOnline_Keogram.URL', url);
+			openspace.fadeIn('ScreenSpace.ScreenSpaceImageOnline_Keogram')
+		},
+		'Keogramm OFF': () => {
+			openspace.fadeOut('ScreenSpace.ScreenSpaceImageOnline_Keogram')
+		},
+	},
+};
+
+var videoButtons = {
+	title: "Lade Videos",
+	buttons: {
+		'Video ASK001 ON': () => {
+			const timestamp = Date.now();
+			const url = 'https://allskykamera.space/imageProxy.php?cam=ASK001&type=keogram&file=last.jpg';
+			openspace.setPropertyValueSingle('ScreenSpace.AllskyVideoExample.Video', url);
+			openspace.fadeIn('ScreenSpace.AllskyVideoExample')
+		},
+		'Video ASK002 ON': () => {
+			const timestamp = Date.now();
+			const url = 'https://allskykamera.space/imageProxy.php?cam=ASK002&type=keogram&file=last.jpg';
+			openspace.setPropertyValueSingle('ScreenSpace.ScreenSpaceImageOnline_Keogram.URL', url);
+			openspace.fadeIn('ScreenSpace.ScreenSpaceImageOnline_Keogram')
+		},
+		'Video ASK005 ON': () => {
+			const timestamp = Date.now();
+			const url = 'https://allskykamera.space/imageProxy.php?cam=ASK005&type=keogram&file=last.jpg';
+			openspace.setPropertyValueSingle('ScreenSpace.ScreenSpaceImageOnline_Keogram.URL', url);
+			openspace.fadeIn('ScreenSpace.ScreenSpaceImageOnline_Keogram')
+		},
+		'Video OFF': () => {
+			openspace.fadeOut('ScreenSpace.ScreenSpaceImageOnline_Keogram')
+		},
+	},
+};
+
+
+
+
+  var buttonGroups = [assetButtons, flyButtons, pictureButtons, keogramButtons, videoButtons];
+  //helper function to map the buttons to html
+  function mapButtons(openspace) {
+	buttonGroups.map((action, id) => {
+	  var cardHTML = "<div class='card'><h2>" + action.title + "</h2>";
+	  if (action.description) {
+		action.description.split('\n').map(item => {
+		  cardHTML += "<p>" + item + "</p>";
+		});
+	  }
+	  if (action.buttons) {
+		Object.keys(action.buttons).map(button => {
+		  const fn = action.buttons[button];
+		  cardHTML += '<button data-id="' + button + '" onClick="(' + fn + ')(event)">' + button + '</button>';
+		});
+	  }
+	  cardHTML += "</div>";
+	  document.getElementById('main').innerHTML += cardHTML;
+	});
+  }
+  //helper function to connect to opensapce
+  var connectToOpenSpace = () => {
+	//setup the api params
+	var host = document.getElementById('ipaddress').value;
+	var api = window.openspaceApi(host, 4682);
+	//notify users on disconnect
+	api.onDisconnect(() => {
+	  console.log("disconnected");
+	  document.getElementById('container').className = "disconnected";
+	  var disconnectedString = "Connect to OpenSpace: ";
+	  disconnectedString += '<input id="ipaddress" type=text placeholder="Enter ip address" /> ';
+	  disconnectedString += '<button onClick="connectToOpenSpace();">Connect</button>';
+	  document.getElementById('connection-status').innerHTML = disconnectedString;
+	  openspace = null;
+	});
+	//notify users and map buttons when connected
+	api.onConnect(async () => {
+	  try {
+		document.getElementById('container').className = "connected";
+		document.getElementById('connection-status').innerHTML = "Connected to OpenSpace";
+		openspace = await api.library();
+		console.log('connected');
+		mapButtons(openspace);
+	  } catch (e) {
+		console.log('OpenSpace library could not be loaded: Error: \n', e)
+		return;
+	  }
+	})
+	//connect
+	api.connect();
+  };
+</script>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="openspace" /><meta name="readthedocs-version-slug" content="latest" /><meta name="readthedocs-resolver-filename" content="/_downloads/92f29f87777b897fc2ad5dd8b184cb3d/openspace_control_template.html" /><meta name="readthedocs-http-status" content="200" /></head>
+<body>
+    <!-- HTML Containers -->
+    <div id="container" class="disconnected">
+      <div id="connection-status" class="connection-status">
+        Connect to OpenSpace:
+        <input id='ipaddress' type=text placeholder="Enter ip address" /> 
+        <button onClick="connectToOpenSpace();">Connect</button>
+      </div>
+      <div id="main">
+      </div>
+      <script type="text/javascript">
+        connectToOpenSpace('localhost');
+      </script>
+	  <script>
+		var api = window.openspaceApi('localhost', 4682);
+		  let intervalIds = [];
+		  api.onConnect(function () {
+
+			//declaring the toggles Object with key value pairs, the keys are the button names you want to be updated
+			//the values are the corresponding openspace properties to subscribe to 
+			var toggles = {
+			  'Turn off the Earth Model':'Scene.Earth.Renderable.Enabled',
+			  'Jupiter Trail Toggle':'Scene.JupiterTrail.Renderable.Enabled',
+
+			};
+
+			//create the pairs array - an array consisting of sub-arrays which contain the button-property pairs
+			//did this for easy indexing but might be able to use a Map instead?
+			let pairs = Object.entries(toggles);
+
+			//creating empty array for intervalIds generated by using setInterval so I can stop the loop onDisconnect
+			let intervalIds = [];
+
+			//the button-updating function:
+			//takes in the button id to be updated and the Openspace Topic to subscribe to
+			//this was adapted from an example from the Openspace team
+			function updateButtonStyle(buttonId, topic) {
+			  topic.iterator().next().then(function(it) {
+				const enabled = it.value.Value;
+				//const button = document.getElementById(buttonId);
+				const button = document.querySelectorAll(`[data-id=${CSS.escape(buttonId)}]`);
+
+				// Update the button's CSS style based on if the property is enabled
+				if (enabled === true || Math.round(enabled) > 0.2) { //adding an OR > to allow for opacity checks and rounding to account for error when = 0
+				  button.forEach(function(item) {
+						item.classList.add('ButtonGreen');
+						item.classList.remove('ButtonRed');
+					});
+				} else {
+				  button.forEach(function(item) {
+						item.classList.add('ButtonRed');
+						item.classList.remove('ButtonGreen');
+					});
+				}
+			  });
+			}
+
+			//An initial function call to set the starting colors, not really necessary since theyre updated every second anyway
+			pairs.forEach(function(item) {
+			  const topic = api.subscribeToProperty(item[1]);
+			  updateButtonStyle(item[0], topic);
+			});
+
+			//loooping through each element in the pairs array
+			//outside the setInterval I am declaring the button id for each and subscribing to the corresponding property 
+			pairs.forEach(function(item) {
+				const buttonId = item[0];
+				const topic = api.subscribeToProperty(item[1]);
+				const intervalId = setInterval(function() { //using setInterval to call the function once per second
+				  updateButtonStyle(buttonId, topic);
+				}, 1000);
+				intervalIds.push(intervalId);//pushing the intervalId to the array for stopping the loop later and avoiding errors
+			});
+
+		  });
+
+		  api.onDisconnect(function() {
+			console.log("Disconnected");
+			intervalIds.forEach(clearInterval); //clearing the Intervalids to stop the topic subscriptions
+			});
+
+		  api.connect();
+	</script>
+    </div>
+  <body>
+</html>
